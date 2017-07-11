@@ -2,7 +2,7 @@
 
 地址：[http://cocoakc.com](http://cocoakc.com)
 
-### 安装说明
+<!-- ### 安装说明
 
 1. fork库到自己的github
 2. 修改名字为：`username.github.io`
@@ -15,4 +15,4 @@
 
 - 三栏布局（master分支，基于[3-Jekyll](https://github.com/P233/3-Jekyll)）
 - 三栏布局 (bootstrap-based分支，基于Bootstrap)
-- 单栏布局（first-ui分支，基于Bootstrap）
+- 单栏布局（first-ui分支，基于Bootstrap） -->
