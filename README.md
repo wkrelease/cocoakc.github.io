@@ -1,6 +1,6 @@
 ### 我的博客
 
-地址：[http://cocoakc.org](http://cocoakc.org)
+地址：[http://cocoakc.com](http://cocoakc.com)
 
 ### 安装说明
 
