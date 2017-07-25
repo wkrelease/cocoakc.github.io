@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 王者荣耀
+title: 王者荣耀 与君共勉
 category: 生活
 tags: king
 keywords: 写作,writing
