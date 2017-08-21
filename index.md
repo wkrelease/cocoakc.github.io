@@ -3,8 +3,6 @@ title: 開卷
 layout: post
 ---
 
-## 永遇乐
-
 千古江山,英雄无觅,孙仲谋处.
 舞榭歌台,风流总被,雨打风吹去.
 斜阳草树,寻常巷陌,人道寄奴曾住.
@@ -14,8 +12,3 @@ layout: post
 可堪回首,佛狸祠下,一片神鸦社鼓!
 凭谁问、廉颇老矣,尚能饭否? 
 
-## 博客平台
-
-这个博客通过 [Jekyll](http://jekyllrb.com/) 生成，部署在 [Github](https://pages.github.com)，主题基于 [3-Jekyll](https://github.com/P233/3-Jekyll) 修改生成，非常感谢 [Peiwen Lu](https://github.com/P233) 开发出这么漂亮的主题。
-
-我博客的源码托管在[Github](https://github.com/wkrelease)上，如果有任何改进意见，欢迎讨论。
