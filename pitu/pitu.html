@@ -3,11 +3,11 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta content="text/html charset=UTF-8" http-equiv="Content-Type">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
-    <link rel="apple-touch-icon" href="https://art.icangyu.com/22.png">
+    <link rel="apple-touch-icon" id="tuLink" href="https://art.icangyu.com/22.png">
     <title>皮小图</title>
 </head>
 <body>
-  <a href="WeChat://" id="qbt" style="display:none"></a>
+  <a id="qbt" style="display:none"></a>
    <span id="msg">
     <center style="position:absolute;left:0;top:0;width: 100%;height: 100%;">
       <img style="z-index:1;width:100%" src="https://art.icangyu.com/pitu.png">
@@ -25,6 +25,26 @@
     } else {
       document.getElementById("msg").innerHTML='<center style="position:absolute;left:0;top:0;width: 100%;height: 100%;"><img style="z-index:1;width:100%" src="https://art.icangyu.com/pitu.png" /><img class="mouse-icon" src="https://art.icangyu.com/pitum.png" style="position:fixed;bottom:10px;width: 33px;height: 38px;left:50%;margin-left:-16px;-webkit-transform:translateZ(0);" /> </center>';
     }
+
+
+    function getParam() { 
+       
+       var url = location.search; //获取url中"?"符后的字串
+
+       if (url.indexOf("?") != -1) {
+         var str = url.substr(1);
+         strs = str.split("&");
+         userId = decodeURIComponent(strs[0].replace("tuId=",""));
+         userImg = decodeURIComponent(strs[1].replace("tuImg=",""));
+
+         document.getElementById("qbt").href=userId;
+         document.getElementById("tuLink").href=userImg;
+
+       }
+
+    }
+
+
 </script>
 
 
