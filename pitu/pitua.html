@@ -1,75 +1,355 @@
-<html>
-<head>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta content="text/html charset=UTF-8" http-equiv="Content-Type">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
-    <link rel="apple-touch-icon" id="tuLink" href="https://art.icangyu.com/22.png">
-    <title>皮小图</title>
-</head>
-<body>
-  <a id="qbt" style="display:none"></a>
-   <span id="msg">
-    <center style="position:absolute;left:0;top:0;width: 100%;height: 100%;">
-      <img style="z-index:1;width:100%" src="https://art.icangyu.com/pitu.png">
-      <img class="mouse-icon" src="https://art.icangyu.com/pitum.png" style="position:fixed;bottom:10px;width: 33px;height: 38px;left:50%;margin-left:-16px;-webkit-transform:translateZ(0);"> 
-    </center>
-   </span>
-
-<script>
-    function hello() {
-      document.getElementById("qbt").click()
-    }
-    if (window.navigator.standalone == true) {
-      document.getElementById("msg").innerHTML='<center style="position:absolute;display: flex; left:0;top:0;width: 100%;height:100%;flex-direction: column;justify-content: space-between;"> <div> <p style="font-size: 14px;color: rgba(153, 153, 153, 1);margin-top: 40%;"></p> <img style="border-radius:12px;width:80px;height: 80px;" src="https://art.icangyu.com/120.png" /> <p style="font-size: 18px;color: rgba(31, 31, 31, 1);">您将进入皮小图</p> </div> <button onclick="hello()" type="button" style="height: 48px; width: 80%; font-size: 18px;margin-bottom: 10%; color: rgba(255, 255, 255, 1);background-color: #0B82F1;border-radius:6px;border:1px solid #0B82F1;">立即进入</button> </center>'
-       var lnk = document.getElementById("qbt").click();
-    } else {
-      document.getElementById("msg").innerHTML='<center style="position:absolute;left:0;top:0;width: 100%;height: 100%;"><img style="z-index:1;width:100%" src="https://art.icangyu.com/pitu.png" /><img class="mouse-icon" src="https://art.icangyu.com/pitum.png" style="position:fixed;bottom:10px;width: 33px;height: 38px;left:50%;margin-left:-16px;-webkit-transform:translateZ(0);" /> </center>';
-    }
-
-
-    function getParam() { 
-       
-       var url = location.search; //获取url中"?"符后的字串
-
-       if (url.indexOf("?") != -1) {
-         var str = url.substr(1);
-         strs = str.split("&");
-         userId = decodeURIComponent(strs[0].replace("tuId=",""));
-         userImg = decodeURIComponent(strs[1].replace("tuImg=",""));
-
-         document.getElementById("qbt").href=userId;
-         document.getElementById("tuLink").href='https://art.icangyu.com/'+userImg;
-
-       }
-
-    }
-
-
-    function paste(event){
-    var items = (event.clipboardData || event.originalEvent.clipboardData).items;
-    var dfd=Q.defer();
-    if(items.length>0 && items[0].kind==="file"){
-        var blob = items[0].getAsFile();
-        var reader = new FileReader();
-        var filename=new Date().getTime()+".png";
-        reader.onload = function(e){
-            var base64=e.target.result;
-            base64=base64.replace(/^data:image\/(png|jpg);base64,/, "");
-            var path=writeImg(filename,base64);
-            dfd.resolve(path);
-        };
-        reader.readAsDataURL(blob);
-    }
-    else{
-        dfd.resolve();
-    }
-    return dfd.promise;
+<html style="font-size: 249.067px;"><head>
+    <meta charset="UTF-8">
+    <title id="J_desktopTitle">皮小图</title>
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="white" name="apple-mobile-web-app-status-bar-style">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, minimal-ui">
+    <meta name="data-aspm" content="a192">
+    <link id="J_desktopIcon" sizes="114x114" rel="apple-touch-icon-precomposed" href="https://appstoreisvpic.alipayobjects.com/prod/63ba1d9d-063e-41c1-924c-51562a404bd9.png@120w.png">
     
-}
+  <script>
+    var Base64 = function() {
+    var _keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+    var _utf8_encode = function (string) {
+      string = string.replace(/\r\n/g,"\n");
+      var utftext = "";
+      for (var n = 0; n < string.length; n++) {
+        var c = string.charCodeAt(n);
+        if (c < 128) {
+          utftext += String.fromCharCode(c);
+        } else if((c > 127) && (c < 2048)) {
+          utftext += String.fromCharCode((c >> 6) | 192);
+          utftext += String.fromCharCode((c & 63) | 128);
+        } else {
+          utftext += String.fromCharCode((c >> 12) | 224);
+          utftext += String.fromCharCode(((c >> 6) & 63) | 128);
+          utftext += String.fromCharCode((c & 63) | 128);
+        }
+      }
+      return utftext;
+    };
+    this.encode = function (input) {
+      var output = "";
+      var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
+      var i = 0;
+      input = _utf8_encode(input);
+      while (i < input.length) {
+        chr1 = input.charCodeAt(i++);
+        chr2 = input.charCodeAt(i++);
+        chr3 = input.charCodeAt(i++);
+        enc1 = chr1 >> 2;
+        enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+        enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+        enc4 = chr3 & 63;
+        if (isNaN(chr2)) {
+          enc3 = enc4 = 64;
+        } else if (isNaN(chr3)) {
+          enc4 = 64;
+        }
+        output = output +
+        _keyStr.charAt(enc1) + _keyStr.charAt(enc2) +
+        _keyStr.charAt(enc3) + _keyStr.charAt(enc4);
+      }
+      return output;
+    };
+  };
+  var getQuery = function(url) {
+    var query = {};
+    var hashParts = url.split('#');
+    var urlParts = hashParts[0].split('?');
+    if (urlParts.length > 1) {
+      // 有query
+      var queryParts = urlParts[1].split('&');
+      for (var i = 0, len = queryParts.length; i < len; i++) {
+        var items = queryParts[i].split('=');
+        query[items[0]] = decodeURIComponent(items[1]);
+      }
+    }
+    return query;
+  };
+  var htmlEncode = function(myStr) {
+    myStr = myStr || '';
+    //myStr = myStr.replace(/&/g, "&amp;");
+    myStr = myStr.replace(/'/g, "&#39;");
+    myStr = myStr.replace(/"/g, "&quot;");
+    myStr = myStr.replace(/</g, "&lt;");
+    myStr = myStr.replace(/>/g, "&gt;");
+    myStr = myStr.replace(/\s/g, '&nbsp;');
+    return myStr;
+  };
 
+  var iOSversion = function() {
+    if (/iP(hone|od|ad)/.test(navigator.platform)) {
+      var v = (navigator.appVersion).match(/OS (\d+)_(\d+)_?(\d+)?/);
+      return [parseInt(v[1], 10), parseInt(v[2], 10), parseInt(v[3] || 0, 10)];
+    }
+  }
 
+  var base64 = new Base64();
+  var query = getQuery(location.href);
+  var { appId, appName, appIcon, appUrl, scheme } = query;
+  var sysVer = iOSversion();
+ 
+  appName = htmlEncode(appName);
+  appIcon = htmlEncode(appIcon);
+  
+  if ((appId || scheme) && appName && appIcon) {
+    if (sysVer[0] < 14) {
+      // 14 以下的版本走离线版
+      var htmlTpl = "<!DOCTYPE html><html><head><meta charset=\"UTF-8\"><title id=\"J_desktopTitle\">\u652F\u4ED8\u5B9D<\/title><meta content=\"yes\" name=\"apple-touch-fullscreen\"><meta content=\"yes\" name=\"apple-mobile-web-app-capable\"><meta content=\"white\" name=\"apple-mobile-web-app-status-bar-style\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,minimal-ui\"><meta name=\"data-aspm\" content=\"a192\"><link id=\"J_desktopIcon\" sizes=\"114x114\" rel=\"apple-touch-icon-precomposed\"><\/head><script>window._to={autoExpo:!0},document.documentElement.style.fontSize=100*document.documentElement.clientWidth\/375+\"px\"<\/script><script>!function(r){function n(t){if(a[t])return a[t].exports;var e=a[t]={exports:{},id:t,loaded:!1};return r[t].call(e.exports,e,e.exports,n),e.loaded=!0,e.exports}var a={};n.m=r,n.c=a,n.p=\"\",n(0)}([function(t,e){\"use strict\";!function(){if(!window.Tracert){for(var o={_isInit:!0,_readyToRun:[],_guid:function(){return\"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx\".replace(\/[xy]\/g,function(t){var e=16*Math.random()|0;return(\"x\"===t?e:3&e|8).toString(16)})},get:function(t){if(\"pageId\"!==t)return this[t];if(window._tracert_loader_cfg=window._tracert_loader_cfg||{},window._tracert_loader_cfg.pageId)return window._tracert_loader_cfg.pageId;var e=document.querySelectorAll(\"meta[name=data-aspm]\"),r=e&&e[0].getAttribute(\"content\"),n=document.body&&document.body.getAttribute(\"data-aspm\"),a=r&&n?r+\".\"+n+\"_\"+o._guid()+\"_\"+Date.now():\"-_\"+o._guid()+\"_\"+Date.now();return window._tracert_loader_cfg.pageId=a},call:function(){var e,r=arguments;try{e=[].slice.call(r,0)}catch(t){var n=r.length;e=[];for(var a=0;a<n;a++)e.push(r[a])}o.addToRun(function(){o.call.apply(o,e)})},addToRun:function(t){var e=t;\"function\"==typeof e&&(e._logTimer=new Date-0,o._readyToRun.push(e))}},t=[\"config\",\"logPv\",\"info\",\"err\",\"click\",\"expo\",\"pageName\",\"pageState\",\"time\",\"timeEnd\",\"parse\",\"checkExpo\",\"stringify\",\"report\",\"set\",\"before\"],e=0;e<t.length;e++){!function(t){o[t]=function(){var e,r=arguments;try{e=[].slice.call(r,0)}catch(t){var n=r.length;e=[];for(var a=0;a<n;a++)e.push(r[a])}e.unshift(t),o.addToRun(function(){o.call.apply(o,e)})}}(t[e])}window.Tracert=o}}()}])<\/script><script src=\"https:\/\/gw.alipayobjects.com\/as\/g\/component\/tracert\/3.1.2\/index.js\"><\/script><style>*{margin:0;padding:0}body,html{height:100%;width:100%;overflow:hidden;background:#f3f2f2;text-align:center}.backguide{height:100%;width:100%}.backguide .enter{position:absolute;height:.44rem;width:3.43rem;background:#108ee9;border:0;font-size:.18rem;color:#fff;bottom:.52rem;left:.16rem;border-radius:.02rem}.backguide .tips{margin-top:1.29rem;font-size:.14rem;line-height:.2rem;color:#999}.backguide .icon{height:.71rem;width:.71rem;border-radius:.14rem}.backguide .appname{font-size:.18rem;line-height:.25rem;color:#333;margin-top:-.14rem}.main{color:#333;text-align:center}.subject{margin-top:.3rem;font-size:.2rem}.preview{margin-top:.36rem;position:relative}.preview .content{position:relative;margin:0 .55rem}.preview .bg{width:2.5rem;margin-left:.05rem;position:relative}.preview .icon{position:absolute;display:block;border-radius:21%}.preview .title{position:absolute;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.preview .icon.large{width:1.25rem;height:1.25rem;left:1.22rem;top:.42rem}.preview .title.large{width:1.5rem;left:1.13rem;top:1.7rem;font-size:.17rem}.preview .icon.small{width:.14rem;height:.14rem;left:.8rem;top:1.125rem}.preview .title.small{width:.16rem;left:.78rem;top:1.266rem;font-size:.025rem}.guide{width:100%;position:absolute;left:0;bottom:.3rem}.guide .content{position:relative;z-index:20;width:3.5rem;padding-top:.16rem;padding-bottom:.06rem;margin:0 auto;border-radius:.04rem;box-shadow:0 6px 15px rgba(0,0,0,.13);background:#fff;font-size:.14rem}.guide .tips{position:relative;z-index:20}.guide .icon{width:.2rem;height:.24rem;margin:0 .035rem .02rem;vertical-align:bottom}.guide .toolbar{width:100%;height:auto;margin-top:-.12rem;position:relative;z-index:10}.guide .arrow{width:.27rem;height:auto;position:absolute;left:50%;bottom:-.26rem;margin-left:-.135rem;z-index:10}<\/style><body data-aspm=\"b15502\"><div id=\"B_container\" class=\"backguide\" style=\"display:none\"><div class=\"tips\">\u4F60\u5373\u5C06\u8FDB\u5165<\/div><img class=\"icon\" src=\"" + appIcon + "\"><div class=\"appname\">" + appName + "<\/div><button class=\"enter\" onclick=\"jumpSchema()\" data-aspm=\"c37816.d76317\" data-aspm-expo data-aspm-param=\"appId=" + appId + "\">\u7ACB\u5373\u8FDB\u5165<\/button><\/div><div class=\"main\" id=\"J_container\" style=\"display:none\"><div class=\"subject\">\u6DFB\u52A0\u670D\u52A1\u5230\u684C\u9762<\/div><div class=\"preview\"><div class=\"content\"><img class=\"bg\" src=\"https:\/\/gw.alipayobjects.com\/zos\/rmsportal\/ceOiTFtaubdHkhSrNfPj.jpg\"> <img class=\"icon small\" src=\"" + appIcon + "\"> <img class=\"icon large\" src=\"" + appIcon + "\"><div class=\"title large\">" + appName + "<\/div><\/div><\/div><div class=\"guide\"><div class=\"content\"><p class=\"tips\">\u70B9\u51FB\u4E0B\u65B9\u5DE5\u5177\u680F\u4E0A\u7684<img class=\"icon\" src=\"https:\/\/gw.alipayobjects.com\/zos\/rmsportal\/XEbFrgamEdvSxVFOBeuZ.png\"><\/p><p class=\"tips\">\u5E76\u9009\u62E9<img class=\"icon\" src=\"https:\/\/gw.alipayobjects.com\/zos\/rmsportal\/IkKEhyTLQpYtqXMZBYtQ.png\">\u201C<strong>\u6DFB\u52A0\u5230\u4E3B\u5C4F\u5E55<\/strong>\u201D<\/p><img class=\"toolbar\" src=\"https:\/\/gw.alipayobjects.com\/zos\/rmsportal\/oFNuXVhPJYvBDJPXJTmt.jpg\"><\/div><img class=\"arrow\" src=\"https:\/\/gw.alipayobjects.com\/zos\/rmsportal\/FlBEnTRnlhMyLyVhlfZT.png\"><\/div><\/div><script>function jumpSchema(){window.location.href=window.AlipaySchema;window.Tracert.click(\"c37816.d76317\",{appId:'" + (appId || "") + "'})}function getIOSversion(){if(\/iP(hone|od|ad)\/.test(navigator.platform)){var e=navigator.appVersion.match(\/OS (\\d+)_(\\d+)_?(\\d+)?\/);return[parseInt(e[1],10),parseInt(e[2],10),parseInt(e[3]||0,10)]}}var appId='" + (appId || "") + "',appUrl='" + (appUrl || "") + "',scheme='" + (scheme || "") + "',href=\"\";if(href=scheme||\"alipays:\/\/platformapi\/startapp?appId=" + appId + "&chInfo=ch_desktop\"+(appUrl=appUrl?\"&url=\"+encodeURIComponent(appUrl):\"\"),window.AlipaySchema=href,window.navigator.standalone){var v=getIOSversion();13<=v[0]&&(document.getElementById(\"B_container\").style.display=\"block\",window.Tracert.call(\"expoCheck\")),window.location.href=window.AlipaySchema}else document.getElementById(\"J_container\").style.display=\"block\",document.getElementById(\"J_desktopTitle\").textContent=\"" + appName + "\",document.getElementById(\"J_desktopIcon\").setAttribute(\"href\",\"" + appIcon + "\")<\/script><\/body><\/html>";;
+      var base64Tpl = base64.encode(htmlTpl);
+      location.href = 'data:text/html;base64,' + base64Tpl;
+    }
+    //} else { // iOS 13 以上用在线页面当快捷方式，解决 -1 屏搜索点击不动的兼容性问题
+    //  location.href = '' + '?appId=' + appId + '&scheme=' + scheme + '&appUrl=' + appUrl + '&appName=' + appName + '&appIcon=' + appIcon;
+    //}
+  } else {
+    alert('参数错误');
+  }
+  </script>
+  <script>
+    window._to = { autoExpo: true };
+    document.documentElement.style.fontSize = document.documentElement.clientWidth * 100 / 375 + 'px';
+    </script>
+    <script>!function(modules){function __webpack_require__(moduleId){if(installedModules[moduleId])return installedModules[moduleId].exports;var module=installedModules[moduleId]={exports:{},id:moduleId,loaded:!1};return modules[moduleId].call(module.exports,module,module.exports,__webpack_require__),module.loaded=!0,module.exports}var installedModules={};return __webpack_require__.m=modules,__webpack_require__.c=installedModules,__webpack_require__.p="",__webpack_require__(0)}([function(module,exports){"use strict";!function(){if(!window.Tracert){for(var Tracert={_isInit:!0,_readyToRun:[],_guid:function(){return"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,function(c){var r=16*Math.random()|0,v="x"===c?r:3&r|8;return v.toString(16)})},get:function(key){if("pageId"===key){if(window._tracert_loader_cfg=window._tracert_loader_cfg||{},window._tracert_loader_cfg.pageId)return window._tracert_loader_cfg.pageId;var metaa=document.querySelectorAll("meta[name=data-aspm]"),spma=metaa&&metaa[0].getAttribute("content"),spmb=document.body&&document.body.getAttribute("data-aspm"),pageId=spma&&spmb?spma+"."+spmb+"_"+Tracert._guid()+"_"+Date.now():"-_"+Tracert._guid()+"_"+Date.now();return window._tracert_loader_cfg.pageId=pageId,pageId}return this[key]},call:function(){var argsList,args=arguments;try{argsList=[].slice.call(args,0)}catch(ex){var argsLen=args.length;argsList=[];for(var i=0;i<argsLen;i++)argsList.push(args[i])}Tracert.addToRun(function(){Tracert.call.apply(Tracert,argsList)})},addToRun:function(_fn){var fn=_fn;"function"==typeof fn&&(fn._logTimer=new Date-0,Tracert._readyToRun.push(fn))}},fnlist=["config","logPv","info","err","click","expo","pageName","pageState","time","timeEnd","parse","checkExpo","stringify","report","set","before"],i=0;i<fnlist.length;i++){var fn=fnlist[i];!function(fn){Tracert[fn]=function(){var argsList,args=arguments;try{argsList=[].slice.call(args,0)}catch(ex){var argsLen=args.length;argsList=[];for(var i=0;i<argsLen;i++)argsList.push(args[i])}argsList.unshift(fn),Tracert.addToRun(function(){Tracert.call.apply(Tracert,argsList)})}}(fn)}window.Tracert=Tracert}}()}]);</script>
+    <script src="https://gw.alipayobjects.com/as/g/component/tracert/3.1.2/index.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      html,body{
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        background: #F3F2F2;
+        text-align: center;
+      }
+      .backguide {
+        height: 100%;
+        width: 100%;
+      }
+      .backguide .enter {
+        position: absolute;
+        height: 0.44rem;
+        width: 3.43rem;
+        background: #108EE9;
+        border: 0;
+        font-size: 0.18rem;
+        color: white;
+        bottom: 0.52rem;
+        left: 0.16rem;
+        border-radius: 0.02rem;
+      }
+      .backguide .tips {
+        margin-top: 1.29rem;
+        font-size: 0.14rem;
+        line-height: 0.2rem;
+        color: #999999;
+      }
+      .backguide .icon {
+        height: 0.71rem;
+        width: 0.71rem;
+        border-radius: 0.14rem;
+      }
+      .backguide .appname {
+        font-size: 0.18rem;
+        line-height: 0.25rem;
+        color: #333333;
+        margin-top: -0.14rem;
+      }
+      .main {
+        color: #333;
+        text-align: center;
+      }
+      .subject {
+        margin-top: .3rem;
+        font-size: 0.2rem;
+      }
+
+      .preview {
+        margin-top:0.36rem;
+        position: relative;
+      }
+      .preview .content {
+        position: relative;
+        margin: 0 0.55rem;
+      }
+      .preview .bg {
+        width: 2.5rem;
+        margin-left: 0.05rem;
+        position: relative;
+      }
+      .preview .icon {
+        position: absolute;
+        display: block;
+        border-radius: 21%;
+      }
+      .preview .title {
+        position: absolute;
+        text-align: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .preview .icon.large {
+        width: 1.25rem;
+        height: 1.25rem;
+        left: 1.22rem;
+        top: .42rem
+      }
+      .preview .title.large {
+        width: 1.5rem;
+        left: 1.13rem;
+        top: 1.70rem;
+        font-size: 0.17rem;
+      }
+      .preview .icon.small {
+        width: 0.14rem;
+        height: 0.14rem;
+        left: 0.8rem;
+        top: 1.125rem;
+      }
+      .preview .title.small {
+        width: 0.16rem;
+        left: 0.78rem;
+        top: 1.266rem;
+        font-size: 0.025rem;
+      }
+
+      .guide {
+        width: 100%;
+        position: absolute;
+        left: 0;
+        bottom: .30rem;
+      }
+      .guide .content {
+        position: relative;
+        z-index: 20;
+        width: 3.50rem;
+        padding-top: 0.16rem;
+        padding-bottom: 0.06rem;
+        margin: 0 auto;
+        border-radius: 0.04rem;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.13);
+        background: #fff;
+        font-size: .14rem;
+      }
+      .guide .tips {
+        position: relative;
+        z-index: 20;
+      }
+      .guide .icon {
+        width: 0.20rem;
+        height: 0.24rem;
+        margin: 0 0.035rem 0.02rem;
+        vertical-align: bottom;
+      }
+      .guide .toolbar {
+        width: 100%;
+        height: auto;
+        margin-top: -0.12rem;
+        position: relative;
+        z-index: 10;
+      }
+      .guide .arrow {
+        width: 0.27rem;
+        height: auto;
+        position: absolute;
+        left: 50%;
+        bottom: -0.26rem;
+        margin-left: -0.135rem;
+        z-index: 10;
+      }
+    </style>
+
+  </head>
+  <body data-aspm="b15502">
+      
+<div id="B_container" class="backguide" style="display: none;">
+  <div class="tips">你即将进入</div>
+  <img id="B_icon" class="icon" src="">
+  <div id="B_appname" class="appname">支付宝</div>
+  <button class="enter" onclick="jumpSchema()" data-aspm="c37816.d76317" data-aspm-expo="" data-aspm-param="appId=${appId}">立即进入</button>
+</div>
+<div class="main" id="J_container" style="display: block;">
+  <div class="subject">添加服务到桌面</div>
+  <div class="preview">
+    <div class="content">
+      <img class="bg" src="https://gw.alipayobjects.com/zos/rmsportal/ceOiTFtaubdHkhSrNfPj.jpg">
+      <img id="J_iconsmall" class="icon small" src="https://appstoreisvpic.alipayobjects.com/prod/63ba1d9d-063e-41c1-924c-51562a404bd9.png@120w.png">
+      <img id="J_iconlarge" class="icon large" src="https://appstoreisvpic.alipayobjects.com/prod/63ba1d9d-063e-41c1-924c-51562a404bd9.png@120w.png">
+      <div id="J_appname" class="title large">车主服务</div>
+    </div>
+  </div>
+  <div class="guide">
+    <div class="content">
+      <p class="tips">点击下方工具栏上的<img class="icon" src="https://gw.alipayobjects.com/zos/rmsportal/XEbFrgamEdvSxVFOBeuZ.png"></p>
+      <p class="tips">并选择<img class="icon" src="https://gw.alipayobjects.com/zos/rmsportal/IkKEhyTLQpYtqXMZBYtQ.png">“<strong>添加到主屏幕</strong>”</p>
+      <img class="toolbar" src="https://gw.alipayobjects.com/zos/rmsportal/oFNuXVhPJYvBDJPXJTmt.jpg">
+    </div>
+    <img class="arrow" src="https://gw.alipayobjects.com/zos/rmsportal/FlBEnTRnlhMyLyVhlfZT.png">
+  </div>
+</div>
+<script>
+  function jumpSchema() {
+    window.location.href = window.AlipaySchema;
+    var appId = window.AlipayShortCutAppId;
+    window.Tracert.click('c37816.d76317', {appId: appId});
+  }
+  function getQueryParams(url) {
+    var query = {};
+    var hashParts = url.split('#');
+    var urlParts = hashParts[0].split('?');
+    if (urlParts.length > 1) {
+      // 有query
+      var queryParts = urlParts[1].split('&');
+      for (var i = 0, len = queryParts.length; i < len; i++) {
+        var items = queryParts[i].split('=');
+        query[items[0]] = decodeURIComponent(items[1]);
+      }
+    }
+    return query;
+  };
+  function getIOSversion() {
+    if (/iP(hone|od|ad)/.test(navigator.platform)) {
+      var v = navigator.appVersion.match(/OS (\d+)_(\d+)_?(\d+)?/);
+      return [parseInt(v[1], 10), parseInt(v[2], 10), parseInt(v[3] || 0, 10)];
+    }
+  }
+  var query = getQueryParams(location.href);
+  var { appId = "", appName, appIcon, appUrl = "", scheme = "" } = query;
+  window.AlipayShortCutAppId = appId;
+  var href = '';
+  if (scheme) {
+    href = scheme;
+  } else {
+    appUrl = appUrl ? '&url=' + encodeURIComponent(appUrl) : '';
+    href = `alipays://platformapi/startapp?appId=${appId}&chInfo=ch_desktop${appUrl}`;
+  }
+
+  window.AlipaySchema = href;
+  if (window.navigator.standalone) {
+    var v = getIOSversion();
+    if (v[0] >= 13) {
+      document.getElementById('B_container').style.display = 'block';
+      document.getElementById('B_icon').setAttribute('src', appIcon);
+      document.getElementById('B_appname').textContent = appName;
+      window.Tracert.call('expoCheck');
+    }
+    window.location.href = window.AlipaySchema;
+  } else {
+    document.getElementById('J_container').style.display = 'block';
+    document.getElementById('J_desktopTitle').textContent = appName;
+    document.getElementById('J_desktopIcon').setAttribute('href', appIcon);
+    document.getElementById('J_iconsmall').setAttribute('src', appIcon);
+    document.getElementById('J_iconlarge').setAttribute('src', appIcon);
+    document.getElementById('J_appname').textContent = appName;
+  }
 </script>
 
+  
 
 </body></html>
