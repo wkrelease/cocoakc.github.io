@@ -1,6 +1,6 @@
 # Site settings
 title: 王坤成的博客
-email: 18501987683@gmail.com
+email: cocoakc
 description: > # this means to ignore newlines until "baseurl:"
   王坤成的博客
 baseurl: "" # the subpath of your site, e.g. /blog/
@@ -16,7 +16,7 @@ recent_num: 20
 # Social account
 # twitter: cocoakc
 # weibo: cocoakc
-github: wkrelease
+github: cocoakc
 instagram: cocoakc
 
 # avatar and Favicon
