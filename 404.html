@@ -1,7 +1,18 @@
 ---
 layout: default
+title: 404
+permalink: /404.html
 ---
-<div id="not-found" class="container">
-  <h1>抱歉，文章不存在</h1>
-  <p>欢迎阅读其他文章</p>
-</div>
+<section class="wrap not-found">
+  <div class="terminal">
+    <div class="terminal-bar">
+      <span class="tl red"></span><span class="tl yellow"></span><span class="tl green"></span>
+      <span class="terminal-title">kc@blog: ~</span>
+    </div>
+    <pre class="terminal-body"><span class="t-prompt">kc@blog:~$</span> cat <span class="t-path"></span>
+<span class="t-err">cat: 没有那个文件或目录 (404)</span>
+<span class="t-prompt">kc@blog:~$</span> echo "抱歉，文章不存在，欢迎阅读其他文章"
+<span class="t-out">抱歉，文章不存在，欢迎阅读其他文章</span>
+<span class="t-prompt">kc@blog:~$</span> cd <a href="{{ "/" | prepend: site.baseurl }}">~</a> <span class="t-cursor"></span></pre>
+  </div>
+</section>

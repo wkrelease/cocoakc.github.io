@@ -8,11 +8,6 @@ url: http://cocoakc.com # the base hostname & protocol for your site
 rss_url: /pages/feed.xml
 author: cocoakc
 
-# Sidebar filter
-# Choose 'tag' or 'category' as filter in sidebar.
-filter: 'category'
-recent_num: 20
-
 # Social account
 # twitter: cocoakc
 # weibo: cocoakc
@@ -42,8 +37,7 @@ sass:
 
 # Jekyll Plugin
 # https://help.github.com/articles/adding-jekyll-plugins-to-a-github-pages-site/
-gems:
+plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
   - jekyll-feed
-
