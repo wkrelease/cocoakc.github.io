@@ -1,29 +1,63 @@
 ---
 layout: default
 ---
-<article class="post container">
-  <div class="post-meta">
-    <span class="post-meta-span date">{{ page.date | date:"%Y %B %d" }}</span>
-    {% if page.tags.size > 0 %}
-    <span class="post-meta-span tag">{{ page.tags | join: ', ' }}</span>
+{% assign category = page.categories | first %}
+{% assign chars = content | strip_html | strip_newlines | size %}
+<div class="read-progress" aria-hidden="true"><span></span></div>
+
+<div class="wrap post-layout">
+  <article class="post">
+    <header class="post-header">
+      <div class="post-path">
+        <a href="{{ "/" | prepend: site.baseurl }}">~</a>/posts/{% if category %}<a href="{{ "/" | prepend: site.baseurl }}?c={{ category | uri_escape }}">{{ category }}</a>/{% endif %}
+      </div>
+      <h1 class="post-title" id="post-title">{{ page.title }}</h1>
+      <div class="post-meta">
+        <span><span class="meta-key">date</span> {{ page.date | date: "%Y-%m-%d" }}</span>
+        <span><span class="meta-key">read</span> ~{{ chars | divided_by: 400 | plus: 1 }} min</span>
+        {% if page.tags.size > 0 %}
+        <span class="post-tags">{% for tag in page.tags %}<span class="tag">#{{ tag }}</span>{% endfor %}</span>
+        {% endif %}
+      </div>
+    </header>
+
+    <div class="post-content">
+      {{ content }}
+    </div>
+
+    <footer class="post-footer">
+      <div class="post-share">
+        <span class="meta-key">share</span>
+        <a href="http://service.weibo.com/share/share.php?url={{ page.url | prepend: site.baseurl | prepend: site.url | uri_escape }}&title={{ page.title | uri_escape }}" target="_blank" rel="noopener">微博</a>
+        <a href="https://twitter.com/share?url={{ page.url | prepend: site.baseurl | prepend: site.url | uri_escape }}&text={{ page.title | uri_escape }}" target="_blank" rel="noopener">Twitter</a>
+        <button type="button" class="copy-link" data-url="{{ page.url | prepend: site.baseurl | prepend: site.url }}">复制链接</button>
+      </div>
+
+      <nav class="post-nav">
+        {% if page.previous %}
+        <a class="post-nav-item prev" href="{{ page.previous.url | prepend: site.baseurl }}">
+          <span class="post-nav-label">&larr; 上一篇</span>
+          <span class="post-nav-title">{{ page.previous.title }}</span>
+        </a>
+        {% else %}<span></span>{% endif %}
+        {% if page.next %}
+        <a class="post-nav-item next" href="{{ page.next.url | prepend: site.baseurl }}">
+          <span class="post-nav-label">下一篇 &rarr;</span>
+          <span class="post-nav-title">{{ page.next.title }}</span>
+        </a>
+        {% endif %}
+      </nav>
+    </footer>
+
+    {% if site.disqus.shortname %}
+    <div class="comments" id="disqus_thread" data-shortname="{{ site.disqus.shortname }}"></div>
     {% endif %}
-  </div>
+  </article>
 
-  <h1 class="post-title">{{ page.title }}</h1>
-  {{ content }}
-</article>
-
-<div class="post-share">
-  <div class="container">
-    <a href="https://twitter.com/share?url={{ page.url | prepend: site.baseurl | prepend: site.url }}&text={{ page.title }}" target="_blank" class="post-share-icon twitter"></a>
-    <a href="https://www.evernote.com/clip.action?url={{ page.url | prepend: site.baseurl | prepend: site.url }}&title={{ page.title }}" target="_blank" class="post-share-icon evernote"></a>
-    <a href="http://service.weibo.com/share/share.php?url={{ page.url | prepend: site.baseurl | prepend: site.url }}&title={{ page.title }}" target="_blank" class="post-share-icon weibo"></a>
-  </div>
+  <aside class="post-toc" aria-label="目录">
+    <div class="post-toc-inner">
+      <div class="post-toc-title">// 目录</div>
+      <ul id="post-toc-list"></ul>
+    </div>
+  </aside>
 </div>
-
-{% if site.disqus.shortname %}
-<div class="comment container">
-  <div id="disqus_thread">
-  </div>
-</div>
-{% endif %}

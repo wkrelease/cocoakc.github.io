@@ -1,0 +1,72 @@
+---
+layout: default
+title: 開卷
+---
+{% assign first_post = site.posts | last %}
+<section class="wrap hero">
+  <div class="hero-text">
+    <p class="hero-kicker"><span class="dot"></span> online · since {{ first_post.date | date: "%Y" }}</p>
+    <h1 class="hero-title">{{ site.title }}</h1>
+    <p class="hero-sub">记录技术、工具与生活。代码会过时，思考不会。</p>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">{{ site.posts.size }}</span><span class="stat-label">posts</span></div>
+      <div class="stat"><span class="stat-num">{{ site.categories.size }}</span><span class="stat-label">categories</span></div>
+      <div class="stat"><span class="stat-num">{{ first_post.date | date: "%Y" }}</span><span class="stat-label">first commit</span></div>
+    </div>
+  </div>
+
+  <div class="terminal" aria-label="開卷">
+    <div class="terminal-bar">
+      <span class="tl red"></span><span class="tl yellow"></span><span class="tl green"></span>
+      <span class="terminal-title">kc@blog: ~</span>
+    </div>
+    <pre class="terminal-body"><span class="t-prompt">kc@blog:~$</span> whoami
+<span class="t-out">王坤成 · developer</span>
+<span class="t-prompt">kc@blog:~$</span> cat 開卷.txt
+<span class="t-poem">千古江山，英雄无觅，孙仲谋处。
+舞榭歌台，风流总被，雨打风吹去。
+斜阳草树，寻常巷陌，人道寄奴曾住。
+想当年、金戈铁马，气吞万里如虎。
+元嘉草草，封狼居胥，赢得仓皇北顾。
+四十三年，望中犹记，烽火扬州路。
+可堪回首，佛狸祠下，一片神鸦社鼓！
+凭谁问、廉颇老矣，尚能饭否？</span>
+<span class="t-prompt">kc@blog:~$</span> <span class="t-cursor"></span></pre>
+  </div>
+</section>
+
+<section class="wrap posts-section">
+  <div class="toolbar">
+    <label class="search">
+      <span class="search-prefix">grep -i</span>
+      <input id="search-input" type="search" placeholder="搜索文章标题…" autocomplete="off">
+    </label>
+    <div class="filters" id="filters">
+      <button type="button" class="chip active" data-filter="all">全部 <span class="chip-count">{{ site.posts.size }}</span></button>
+      {% assign cats = site.categories | sort %}
+      {% for cat in cats %}
+      <button type="button" class="chip" data-filter="{{ cat[0] }}">{{ cat[0] }} <span class="chip-count">{{ cat[1].size }}</span></button>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="post-grid" id="post-grid">
+    {% for post in site.posts %}
+    {% assign category = post.categories | first %}
+    {% assign text = post.content | strip_html | strip_newlines %}
+    <a class="card" href="{{ post.url | prepend: site.baseurl }}" data-category="{{ category }}" data-title="{{ post.title | escape }}">
+      <div class="card-top">
+        <span class="card-cat">{{ category }}</span>
+        <time class="card-date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
+      </div>
+      <h2 class="card-title">{{ post.title }}</h2>
+      <p class="card-excerpt">{{ text | truncate: 90 }}</p>
+      <div class="card-bottom">
+        <span>~{{ text | size | divided_by: 400 | plus: 1 }} min read</span>
+        <span class="card-arrow">&rarr;</span>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+  <p class="empty" id="empty" hidden>&gt; 0 results. 换个关键词试试。</p>
+</section>
